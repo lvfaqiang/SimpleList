@@ -10,11 +10,15 @@ package com.fq.kotlinbase1.ext.content
  */
 
 import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
+import android.support.annotation.LayoutRes
 import android.support.annotation.RequiresApi
 import android.support.annotation.StyleRes
 import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
 
 /**
  * Return the handle to a system-level service by class.
@@ -83,4 +87,17 @@ inline fun Context.withStyledAttributes(
     } finally {
         typedArray.recycle()
     }
+}
+
+inline val Context.packageInfo: PackageInfo?
+    get() = packageManager.getPackageInfo(packageName, 0)
+
+inline val Context.versionName: String?
+    get() = packageInfo?.versionName
+
+inline val Context.versionCode: Int
+    get() = packageInfo?.versionCode ?: -1
+
+inline fun Context.inflaterView(@LayoutRes layoutId: Int): View {
+    return LayoutInflater.from(this).inflate(layoutId, null)
 }
