@@ -9,7 +9,9 @@ package com.fq.kotlinbase1.ext.content
  *
  */
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
@@ -89,6 +91,45 @@ inline fun Context.withStyledAttributes(
     }
 }
 
+/**
+ *  Intent 跳转相关
+ */
+
+inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
+    startActivity(
+            Intent(this, T::class.java)
+                    .apply {
+                        block.invoke(this)
+                    }
+    )
+}
+
+inline fun Context.startAction(action: String, block: Intent.() -> Unit = {}) {
+    startActivity(
+            Intent(action)
+                    .apply {
+                        block.invoke(this)
+                    })
+}
+
+inline fun Context.startIntent(block: Intent.() -> Unit = {}) {
+    startActivity(
+            Intent().apply(block)
+    )
+}
+// ----------------------------------
+
+// LayoutInflater
+
+inline fun Context.inflaterView(@LayoutRes layoutId: Int): View {
+    return LayoutInflater.from(this).inflate(layoutId, null)
+}
+
+
+// ----------------------------------
+
+// PackageInfo
+
 inline val Context.packageInfo: PackageInfo?
     get() = packageManager.getPackageInfo(packageName, 0)
 
@@ -98,6 +139,3 @@ inline val Context.versionName: String?
 inline val Context.versionCode: Int
     get() = packageInfo?.versionCode ?: -1
 
-inline fun Context.inflaterView(@LayoutRes layoutId: Int): View {
-    return LayoutInflater.from(this).inflate(layoutId, null)
-}
