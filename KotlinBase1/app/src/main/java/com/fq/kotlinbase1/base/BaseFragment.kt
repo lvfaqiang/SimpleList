@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lvfq.library.utils.FragmentUtil
+import com.fq.kotlinbase1.utils.basic.FragmentUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import org.greenrobot.eventbus.EventBus
 
@@ -44,14 +44,24 @@ abstract class BaseFragment : Fragment(), IBase {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (useEventbus()) {
+        if (useEventBus()) {
             EventBus.getDefault().register(this)
         }
         isViewCreated = true
 
-        initUI()
-        initData()
+        initUI(view, savedInstanceState)
         initListener()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        initData(savedInstanceState)
+    }
+
+    override fun onResume() {
+        isStoped = false
+        super.onResume()
     }
 
     override fun onStop() {
@@ -60,7 +70,7 @@ abstract class BaseFragment : Fragment(), IBase {
     }
 
     override fun onDestroyView() {
-        if (useEventbus()) {
+        if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
         super.onDestroyView()
@@ -82,7 +92,7 @@ abstract class BaseFragment : Fragment(), IBase {
 
     }
 
-    override fun getLifecyclerOwner(): LifecycleOwner = this
+    override fun getLifecycleOwner(): LifecycleOwner = this
 
 
     override fun getContext(): Context? = super.getContext()
@@ -90,8 +100,10 @@ abstract class BaseFragment : Fragment(), IBase {
 
     abstract fun getLayoutId(): Int
 
-    abstract fun initUI()
-    abstract fun initData()
+    abstract fun initUI(view: View, savedInstanceState: Bundle?)
+
+    abstract fun initData(savedInstanceState: Bundle?)
+
     abstract fun initListener()
 
 

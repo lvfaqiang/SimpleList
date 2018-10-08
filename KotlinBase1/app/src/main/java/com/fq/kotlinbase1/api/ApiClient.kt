@@ -18,21 +18,7 @@ import java.util.concurrent.TimeUnit
  *
  */
 
-class ApiClient {
-    companion object {
-        fun get(): ApiClient {
-            return SingletonHolder.INSTANCE
-        }
-
-        fun getDefault(): ApiService {
-            return get().DEFAULT
-        }
-    }
-
-    private object SingletonHolder {
-        internal val INSTANCE = ApiClient()
-    }
-
+object ApiClient {
 
     private val mRetrofit by lazy {
         Retrofit.Builder()

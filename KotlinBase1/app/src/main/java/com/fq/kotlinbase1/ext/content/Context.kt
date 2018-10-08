@@ -19,6 +19,7 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.RequiresApi
 import android.support.annotation.StyleRes
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 
@@ -139,3 +140,59 @@ inline val Context.versionName: String?
 inline val Context.versionCode: Int
     get() = packageInfo?.versionCode ?: -1
 
+
+inline val Context.appDisplayMetrics: DisplayMetrics
+    get() = this.applicationContext.resources.displayMetrics
+
+/**
+ * Value of dp to value of px.
+ *
+ * @param dpValue The value of dp.
+ * @return value of px
+ */
+fun Context.dp2px(dpValue: Float): Int {
+    val scale = this.appDisplayMetrics.density
+    return (dpValue * scale + 0.5f).toInt()
+}
+
+/**
+ * Value of px to value of dp.
+ *
+ * @param pxValue The value of px.
+ * @return value of dp
+ */
+fun Context.px2dp(pxValue: Float): Int {
+    val scale = this.appDisplayMetrics.density
+    return (pxValue / scale + 0.5f).toInt()
+}
+
+
+/**
+ * Value of sp to value of px.
+ *
+ * @param spValue The value of sp.
+ * @return value of px
+ */
+fun Context.sp2px(spValue: Float): Int {
+    val fontScale = this.appDisplayMetrics.density
+    return (spValue * fontScale + 0.5f).toInt()
+}
+
+/**
+ * Value of px to value of sp.
+ *
+ * @param pxValue The value of px.
+ * @return value of sp
+ */
+fun Context.px2sp(pxValue: Float): Int {
+    val fontScale = this.appDisplayMetrics.density
+    return (pxValue / fontScale + 0.5f).toInt()
+}
+
+
+inline val Context.screenHeight
+    get() = this.resources.displayMetrics.heightPixels
+
+
+inline val Context.screenWidth
+    get() = this.resources.displayMetrics.widthPixels

@@ -2,6 +2,7 @@ package com.fq.kotlinbase1.base
 
 import android.arch.lifecycle.LifecycleOwner
 import android.content.Context
+import android.support.annotation.StringRes
 
 /**
  * IBase
@@ -21,15 +22,17 @@ interface IBase {
 
 
     // EventBus
-    fun useEventbus(): Boolean = false
+    fun useEventBus(): Boolean = false
 
     // Toast
     fun toastSuc(message: String)
+    fun toastSuc(@StringRes strId: Int)
 
     fun toastFailed(message: String)
+    fun toastFailed(@StringRes strId: Int)
 
 
-    fun getLifecyclerOwner(): LifecycleOwner
+    fun getLifecycleOwner(): LifecycleOwner
 
     fun getContext(): Context?
 

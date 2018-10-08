@@ -79,7 +79,7 @@ fun View.toggleGone() {
 /**
  * 设置 TextView 显示图标
  */
-inline fun TextView.drawIcon(@DrawableRes res: Int?, position: Position) {
+inline fun TextView.drawable(@DrawableRes res: Int?, position: Position) {
     val drawable = if (res != null) resources.getDrawable(res) else {
         null
     }

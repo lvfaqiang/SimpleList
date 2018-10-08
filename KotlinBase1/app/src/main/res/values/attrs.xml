@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="InputEditText">
+        <!--设置输入框左边距-->
+        <attr name="editPaddingLeft" format="dimension" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:textColorHint" />
+        <attr name="android:hint" />
+        <attr name="android:singleLine" />
+        <attr name="android:inputType" />
+        <attr name="android:maxLength" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawablePadding" />
+        <attr name="android:textCursorDrawable" />
+        <!--右边图片显示 (这里用来控制显示隐藏密码的图片)-->
+        <attr name="showPasswordResource" format="reference|color" />
+        <attr name="hidePasswordResource" format="reference|color" />
+        <!--删除按钮图标-->
+        <attr name="closeResource" format="reference|color" />
+        <!--是否显示删除按钮-->
+        <attr name="showClose" format="boolean" />
+        <!--是否显示密码切换-->
+        <attr name="showPasswordToggle" format="boolean" />
+    </declare-styleable>
+
+</resources>

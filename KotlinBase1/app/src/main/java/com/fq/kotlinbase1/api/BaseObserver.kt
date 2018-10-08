@@ -43,7 +43,7 @@ abstract class HxBaseObserver<T> : Observer<T> {
     }
 
     override fun onNext(t: T) {
-        TODO()
+
     }
 
 
